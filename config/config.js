@@ -17,9 +17,9 @@ module.exports = {
     dialect: 'mysql',
   },
   production: {
-    username: process.env.MYSQLUSER,
-    password: process.env.MYSQLPASSWORD,
-    database: process.env.MYSQLDATABASE,
+    username: process.env.MYSQLUSER || "root",
+    password: process.env.MYSQLPASSWORD || "XURNNNqPpmuKehJusyDEFpoJzawpOKiF",
+    database: process.env.MYSQLDATABASE || "railway",
     host: process.env.MYSQLHOST || "mysql.railway.internal",
     port: parseInt(process.env.MYSQLPORT, 10), // Convert string to number
     dialect: 'mysql',
