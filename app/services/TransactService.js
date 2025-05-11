@@ -1,5 +1,7 @@
+const { default: axios } = require('axios');
 const { User } = require('../../models');
 const TransactionService = require('./TransactionService');
+require('dotenv').config()
 
 class TransactService {
     static deposit = async (data) => {
@@ -84,6 +86,15 @@ class TransactService {
     
         } catch (error) {
             throw error;
+        }
+    }
+
+    static checkClubKonnectBalance = async () => {
+        try {
+            const response = await axios.get(`https://www.nellobytesystems.com/APIWalletBalanceV1.asp?UserID=${process.env.USERID}&APIKey=${process.env.APIKEY}`)
+            return response.data
+        } catch (error) {
+            throw error
         }
     }
      
