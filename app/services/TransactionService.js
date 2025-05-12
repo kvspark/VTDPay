@@ -24,10 +24,10 @@ class TransactionService {
       where: {user_id: user.id},
       order: [['id', 'desc']]
     })
-    if(userTx.length === 0)
-    {
-      throw new Error('Transaction not Found')
-    }
+    // if(userTx.length === 0)
+    // {
+    //   throw new Error('Transaction not Found')
+    // }
     return userTx
   }
 
