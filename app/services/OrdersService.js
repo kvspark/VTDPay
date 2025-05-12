@@ -25,10 +25,10 @@ class OrdersService {
 
             const response = await axios.get(`https://www.nellobytesystems.com/APIAirtimeV1.asp?UserID=${process.env.USERID}&APIKey=${process.env.APIKEY}&MobileNetwork=${data.body.network_id}&Amount=${data.body.amount}&MobileNumber=${data.body.phone_number}&RequestID=${requestId}&CallBackURL=${encodeURIComponent(callbackUrl)}`);
 
-            if (response.data.status === "ORDER_RECEIVED") {
+            if (response.data.status == "ORDER_RECEIVED") {
                 const queryResponse = await axios.get(`https://www.nellobytesystems.com/APIQueryV1.asp?UserID=${process.env.USERID}&APIKey=${process.env.APIKEY}&OrderID=${requestId}`);
                 
-                if (queryResponse.data.status === "ORDER_COMPLETED") {
+                if (queryResponse.data.status == "ORDER_COMPLETED") {
                     await TransactionService.create({
                         user_id: user.id,
                         transaction_type: 'Airtime',
@@ -114,10 +114,10 @@ class OrdersService {
 
             const response = await axios.get(`https://www.nellobytesystems.com/APIDatabundleV1.asp?UserID=${process.env.USERID}&APIKey=${process.env.APIKEY}&MobileNetwork=${data.body.network_id}&DataPlan=${data.body.product_id}&MobileNumber=${data.body.phone_number}&RequestID=${requestId}&CallBackURL=${encodeURIComponent(callbackUrl)}`);
             
-            if (response.data.status === "ORDER_RECEIVED") {
+            if (response.data.status == "ORDER_RECEIVED") {
                 const queryResponse = await axios.get(`https://www.nellobytesystems.com/APIQueryV1.asp?UserID=${process.env.USERID}&APIKey=${process.env.APIKEY}&OrderID=${requestId}`)
                 
-                if (queryResponse.data.status === "ORDER_COMPLETED") {
+                if (queryResponse.data.status == "ORDER_COMPLETED") {
                     await TransactionService.create({
                         user_id: user.id,
                         transaction_type: 'Data Bundle',
@@ -202,10 +202,10 @@ class OrdersService {
 
             const response = await axios.get(`https://www.nellobytesystems.com/APICableTVV1.asp?UserID=${process.env.USERID}&APIKey=${process.env.APIKEY}&CableTV=${data.body.id}&Package=${data.body.product_id}&SmartCardNo=${data.body.recipient_smartcardno}&PhoneNo=${data.body.phone_number}&RequestID=${requestId}&CallBackURL=${encodeURIComponent(callbackUrl)}`);
             
-            if (response.data.status === "ORDER_RECEIVED") {
+            if (response.data.status == "ORDER_RECEIVED") {
                 const queryResponse = await axios.get(`https://www.nellobytesystems.com/APIQueryV1.asp?UserID=${process.env.USERID}&APIKey=${process.env.APIKEY}&OrderID=${requestId}`)
                 
-                if (queryResponse.data.status === "ORDER_COMPLETED") {
+                if (queryResponse.data.status == "ORDER_COMPLETED") {
                     await TransactionService.create({
                         user_id: user.id,
                         transaction_type: 'Cable',
@@ -289,10 +289,10 @@ class OrdersService {
 
             const response = await axios.get(`https://www.nellobytesystems.com/APIElectricityV1.asp?UserID=${process.env.USERID}&APIKey=${process.env.APIKEY}key&ElectricCompany=${data.body.company_code}&MeterType=${data.body.meterType}&MeterNo=${data.body.meterNumber}&Amount=${data.body.product_amount}&PhoneNo=${data.body.phone_number}&RequestID=${requestId}&CallBackURL=${encodeURIComponent(callbackUrl)}`);
             
-            if (response.data.status === "ORDER_RECEIVED") {
+            if (response.data.status == "ORDER_RECEIVED") {
                 const queryResponse = await axios.get(`https://www.nellobytesystems.com/APIQueryV1.asp?UserID=UserID=${process.env.USERID}&APIKey=${process.env.APIKEY}&OrderID=${requestId}`)
                 
-                if (queryResponse.data.status === "ORDER_COMPLETED") {
+                if (queryResponse.data.status == "ORDER_COMPLETED") {
                     await TransactionService.create({
                         user_id: user.id,
                         transaction_type: 'Electricity Bill',
@@ -376,10 +376,10 @@ class OrdersService {
 
             const response = await axios.get(`https://www.nellobytesystems.com/APIBettingV1.asp?UserID=${process.env.USERID}&APIKey=${process.env.APIKEY}&BettingCompany=${data.body.product_code}&CustomerID=${data.body.customer_id}&Amount=${data.body.product_amount}&&RequestID=${requestId}&CallBackURL=${encodeURIComponent(callbackUrl)}`);
             
-            if (response.data.status === "ORDER_RECEIVED") {
+            if (response.data.status == "ORDER_RECEIVED") {
                 const queryResponse = await axios.get(`https://www.nellobytesystems.com/APIQueryV1.asp?UserID=UserID=${process.env.USERID}&APIKey=${process.env.APIKEY}&OrderID=${requestId}`)
                 
-                if (queryResponse.data.status === "ORDER_COMPLETED") {
+                if (queryResponse.data.status == "ORDER_COMPLETED") {
                     await TransactionService.create({
                         user_id: user.id,
                         transaction_type: 'Betting',
@@ -463,10 +463,10 @@ class OrdersService {
 
             const response = await axios.get(`https://www.nellobytesystems.com/APIJAMBV1.asp?UserID=${process.env.USERID}&APIKey=${process.env.APIKEY}&ExamType=${data.body.product_code}&PhoneNo=${data.body.phone_number}&RequestID=${requestId}&CallBackURL=${encodeURIComponent(callbackUrl)}`);
             
-            if (response.data.status === "ORDER_RECEIVED") {
+            if (response.data.status == "ORDER_RECEIVED") {
                 const queryResponse = await axios.get(`https://www.nellobytesystems.com/APIQueryV1.asp?UserID=UserID=${process.env.USERID}&APIKey=${process.env.APIKEY}&OrderID=${requestId}`)
                 
-                if (queryResponse.data.status === "ORDER_COMPLETED") {
+                if (queryResponse.data.status == "ORDER_COMPLETED") {
                     await TransactionService.create({
                         user_id: user.id,
                         transaction_type: 'JAMB',
@@ -551,10 +551,10 @@ class OrdersService {
             const response = await axios.get(`https://www.nellobytesystems.com/APIJAMBV1.asp?UserID=${process.env.USERID}&APIKey=${process.env.APIKEY}&ExamType=${data.body.product_code}&PhoneNo=${data.body.phone_number}&RequestID=${requestId}&CallBackURL=${encodeURIComponent(callbackUrl)}`);
             // const response = await axios.get(`https://www.nellobytesystems.com/APIWAECV1.asp?UserID=your_userid&APIKey=your_apikey&ExamType=${data.body.}&PhoneNo=${data.body.phone_number}&RequestID=${requestId}&CallBackURL=${encodeURIComponent(callbackUrl)}`);
             
-            if (response.data.status === "ORDER_RECEIVED") {
+            if (response.data.status == "ORDER_RECEIVED") {
                 const queryResponse = await axios.get(`https://www.nellobytesystems.com/APIQueryV1.asp?UserID=UserID=${process.env.USERID}&APIKey=${process.env.APIKEY}&OrderID=${requestId}`)
                 
-                if (queryResponse.data.status === "ORDER_COMPLETED") {
+                if (queryResponse.data.status == "ORDER_COMPLETED") {
                     await TransactionService.create({
                         user_id: user.id,
                         transaction_type: 'WACE',
