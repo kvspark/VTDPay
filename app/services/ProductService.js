@@ -1,6 +1,5 @@
-const { default: axios } = require("axios")
-require('dotenv').config()
-
+const axios = require('axios')
+require('dotenv').config();
 
 
 
@@ -75,7 +74,7 @@ class ProductService {
 
     static vtuBalance = async () => {
         try {
-            const response = await axios.get(`https://www.nellobytesystems.com/APIWalletBalanceV1.asp?UserID=${process.env.USERID}&APIKey=${process.env.APIKey}`)
+            const response = await axios.get(`https://www.nellobytesystems.com/APIWalletBalanceV1.asp?UserID=${process.env.USERID}&APIKey=${process.env.APIKEY}`)
             return  response.data
         } catch (error) {
             throw error
