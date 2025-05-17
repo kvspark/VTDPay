@@ -6,7 +6,10 @@ class AccountController {
   static createAccount = async (req, res) => {
     try {
       const account = await AccountService.createAccount(req.body);
-      res.status(201).json({success: true, message: 'Account Created Successfully'});
+      if(account)
+      {
+        res.status(201).json({success: true, message: 'Account Created Successfully'});
+      }
     } catch (error) {
       res.status(400).json({success: false, error: error.message });
     }
