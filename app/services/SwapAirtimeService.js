@@ -1,5 +1,3 @@
-// services/SwapAirtimeService.js
-
 const { SwapAirtime } = require('../../models');
 
 class SwapAirtimeService {
@@ -7,16 +5,28 @@ class SwapAirtimeService {
     return await SwapAirtime.create(data);
   };
 
-  static getFirstSwapAirtime = async () => {
-    return await SwapAirtime.findOne();
+  static getAllSwapAirtime = async () => {
+    return await SwapAirtime.findAll();
+  };
+
+  static getSwapAirtimeById = async (id) => {
+    return await SwapAirtime.findByPk(id);
   };
 
   static updateSwapAirtime = async (id, data) => {
     const swap = await SwapAirtime.findByPk(id);
-    if (!swap) {
-      throw new Error('SwapAirtime record not found');
-    }
+    if (!swap) throw new Error('SwapAirtime not found');
     return await swap.update(data);
+  };
+
+  static deleteSwapAirtime = async (id) => {
+    const swap = await SwapAirtime.findByPk(id);
+    if (!swap) throw new Error('SwapAirtime not found');
+    return await swap.destroy();
+  };
+
+  static getFirstSwapAirtime = async () => {
+    return await SwapAirtime.findOne();
   };
 }
 

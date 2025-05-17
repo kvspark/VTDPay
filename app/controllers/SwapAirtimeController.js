@@ -1,38 +1,58 @@
-// controllers/SwapAirtimeController.js
-
 const SwapAirtimeService = require('../services/SwapAirtimeService');
 
 class SwapAirtimeController {
-  static createSwapAirtime = async (req, res) => {
+  static create = async (req, res) => {
     try {
-      const data = req.body;
-      const newSwap = await SwapAirtimeService.createSwapAirtime(data);
-      return res.status(201).json({ success: true, data: newSwap });
-    } catch (error) {
-      return res.status(500).json({ success: false, message: error.message });
+      const swap = await SwapAirtimeService.createSwapAirtime(req.body);
+      res.status(201).json(swap);
+    } catch (err) {
+      res.status(400).json({ error: err.message });
     }
   };
 
-  static getFirstSwapAirtime = async (req, res) => {
+  static getAll = async (req, res) => {
     try {
-      const firstSwap = await SwapAirtimeService.getFirstSwapAirtime();
-      if (!firstSwap) {
-        return res.status(404).json({ success: false, message: 'No Swap Airtime found' });
-      }
-      return res.status(200).json({ success: true, data: firstSwap });
-    } catch (error) {
-      return res.status(500).json({ success: false, message: error.message });
+      const swaps = await SwapAirtimeService.getAllSwapAirtime();
+      res.json(swaps);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
     }
   };
 
-  static updateSwapAirtime = async (req, res) => {
+  static getById = async (req, res) => {
     try {
-      const { id } = req.params;
-      const data = req.body;
-      const updatedSwap = await SwapAirtimeService.updateSwapAirtime(id, data);
-      return res.status(200).json({ success: true, data: updatedSwap });
-    } catch (error) {
-      return res.status(500).json({ success: false, message: error.message });
+      const swap = await SwapAirtimeService.getSwapAirtimeById(req.params.id);
+      if (!swap) return res.status(404).json({ error: 'Not found' });
+      res.json(swap);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  };
+
+  static update = async (req, res) => {
+    try {
+      const swap = await SwapAirtimeService.updateSwapAirtime(req.params.id, req.body);
+      res.json(swap);
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
+  };
+
+  static delete = async (req, res) => {
+    try {
+      await SwapAirtimeService.deleteSwapAirtime(req.params.id);
+      res.json({ message: 'Deleted successfully' });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  };
+
+  static getFirst = async (req, res) => {
+    try {
+      const swap = await SwapAirtimeService.getFirstSwapAirtime();
+      res.json(swap);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
     }
   };
 }
