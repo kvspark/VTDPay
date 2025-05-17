@@ -4,9 +4,9 @@ class SwapAirtimeController {
   static create = async (req, res) => {
     try {
       const swap = await SwapAirtimeService.createSwapAirtime(req.body);
-      res.status(201).json(swap);
+      res.status(201).json({success: true, message: 'Account Created successfully',swap});
     } catch (err) {
-      res.status(400).json({ error: err.message });
+      res.status(400).json({success: false, error: err.message });
     }
   };
 
@@ -32,7 +32,7 @@ class SwapAirtimeController {
   static update = async (req, res) => {
     try {
       const swap = await SwapAirtimeService.updateSwapAirtime(req.params.id, req.body);
-      res.json(swap);
+      res.json({ success: false, message: 'SwapAirtime Updated Successfully', swap});
     } catch (err) {
       res.status(400).json({ error: err.message });
     }
