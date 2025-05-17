@@ -50,6 +50,15 @@ class AccountController {
       res.status(500).json({ error: error.message });
     }
   };
+
+  static getFirstAccountDetails = async (req, res) => {
+    try {
+      const account = await AccountService.getFirstAccount();
+      res.status(201).json(account);
+    } catch (error) {
+      res.status(500).json({success: false,  error: error.message });
+    }
+  };
 }
 
 module.exports = AccountController;

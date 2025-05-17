@@ -29,6 +29,11 @@ class AccountService {
       }
       await account.destroy();
     };
+
+    // New method to get the first account
+    static getFirstAccount = async () => {
+        return await Account.findOne();
+    };
   }
   
   module.exports = AccountService;
