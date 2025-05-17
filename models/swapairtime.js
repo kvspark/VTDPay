@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     color: DataTypes.STRING
   }, {
     sequelize,
+    tableName: 'SwapAirtimes',
     modelName: 'SwapAirtime',
   });
   return SwapAirtime;
