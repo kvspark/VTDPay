@@ -7,6 +7,8 @@ const CallBackRoute = require('./app/routes/CallBackRoute')
 const OrdersRoute = require('./app/routes/OrdersRoute')
 const TransactRoute = require('./app/routes/TransactRoute')
 const AccountRoute = require('./app/routes/AccountRoute')
+const SwapAirtimeRoute = require('./app/routes/SwapAirtimeRoute')
+
 
 
 
@@ -24,6 +26,7 @@ app.use('/api/callback',CallBackRoute)
 app.use('/api/order',OrdersRoute)
 app.use('/api/transact',TransactRoute)
 app.use('/api/account-details',AccountRoute)
+app.use('/api/swap-airtime',SwapAirtimeRoute)
 
 
 
