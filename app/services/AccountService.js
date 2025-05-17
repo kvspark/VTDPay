@@ -3,7 +3,7 @@ const { Account } = require('../../models');
 
 class AccountService {
     static createAccount = async (data) => {
-      return await Account.create(data);
+    //    await Account.create(data);
     };
   
     static getAllAccounts = async () => {
