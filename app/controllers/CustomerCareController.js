@@ -20,6 +20,18 @@ class CustomerCareController {
       return res.status(500).json({ success: false, message: error.message });
     }
   };
+
+  static update = async (req, res) => {
+    try {
+      const id = req.params.id;
+      const data = req.body;
+      await CustomerCareService.updateCustomerCare(id, data);
+      return res.json({ success: true, message: "Customer care updated successfully" });
+    } catch (error) {
+      console.error("Update error:", error);
+      return res.status(500).json({ success: false, message: error.message });
+    }
+  };
 }
 
 module.exports = CustomerCareController;
