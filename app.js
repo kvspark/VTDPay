@@ -8,6 +8,7 @@ const OrdersRoute = require('./app/routes/OrdersRoute')
 const TransactRoute = require('./app/routes/TransactRoute')
 const AccountRoute = require('./app/routes/AccountRoute')
 const SwapAirtimeRoute = require('./app/routes/SwapAirtimeRoute')
+const CustomerCareRoute = require('./app/routes/CustomerCareRoute')
 
 
 
@@ -27,6 +28,7 @@ app.use('/api/order',OrdersRoute)
 app.use('/api/transact',TransactRoute)
 app.use('/api/account-details',AccountRoute)
 app.use('/api/swap-airtime',SwapAirtimeRoute)
+app.use('/api/customer-care',CustomerCareRoute)
 
 
 
