@@ -22,38 +22,42 @@ class UserService {
     // Create User
     static createUser = async (data) => {
         try {
-        // Hash the password before saving to the database
-        data.password = await bcrypt.hash(data.password, 10);
-            
-        
-        // Try to create a new user
-        const user = await User.create(data);
-    
-        if (user) {
-            const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '720h' });
-            return { success: true, message: "Account Created successfully", token: token };
-        }
-    
+          // Hash the password before saving to the database
+          data.password = await bcrypt.hash(data.password, 10);
+      
+          // ✅ Hash the PIN (if it exists)
+          if (data.pin) {
+            data.pin = await bcrypt.hash(data.pin, 10);
+          }
+      
+          // Create the user
+          const user = await User.create(data);
+      
+          if (user) {
+            const token = jwt.sign(
+              { id: user.id, email: user.email },
+              process.env.JWT_SECRET,
+              { expiresIn: '720h' }
+            );
+            return { success: true, message: 'Account Created successfully', token };
+          }
+      
         } catch (error) {
-        // Handle different types of errors
-    
-        // Sequelize validation error (e.g., missing required fields)
-        if (error instanceof Sequelize.ValidationError) {
-            let messages = error.errors.map(err => err.message); // Collect all validation error messages
+          if (error instanceof Sequelize.ValidationError) {
+            let messages = error.errors.map(err => err.message);
             throw { success: false, message: `Validation Error: ${messages.join(', ')}` };
-        }
-    
-        // Sequelize unique constraint error (e.g., email or username already exists)
-        if (error instanceof Sequelize.UniqueConstraintError) {
+          }
+      
+          if (error instanceof Sequelize.UniqueConstraintError) {
             throw { success: false, message: `Duplicate entry error: ${error.errors[0].message}` };
+          }
+      
+          console.log('ps', error);
+      
+          throw { success: false, message: error.message || 'An unexpected error occurred.' };
         }
-
-        console.log('ps', error)
-    
-        // Other errors (generic or unexpected)
-        throw { success: false, message: error.message || 'An unexpected error occurred.' };
-        }
-    };
+      };
+      
 
     static findUser = async (data) => {
         try {

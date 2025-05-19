@@ -9,6 +9,8 @@ const TransactRoute = require('./app/routes/TransactRoute')
 const AccountRoute = require('./app/routes/AccountRoute')
 const SwapAirtimeRoute = require('./app/routes/SwapAirtimeRoute')
 const CustomerCareRoute = require('./app/routes/CustomerCareRoute')
+const GiftCardRoute = require('./app/routes/GiftCardRoute')
+const GiftCardCurrencyRoute = require('./app/routes/GiftCardCurrencyRoute')
 
 
 
@@ -29,6 +31,8 @@ app.use('/api/transact',TransactRoute)
 app.use('/api/account-details',AccountRoute)
 app.use('/api/swap-airtime',SwapAirtimeRoute)
 app.use('/api/customer-care',CustomerCareRoute)
+app.use('/api/gift-card',GiftCardRoute)
+app.use('/api/gift-card-currency',GiftCardCurrencyRoute)
 
 
 
