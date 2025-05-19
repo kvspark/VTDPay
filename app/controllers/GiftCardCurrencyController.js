@@ -4,7 +4,7 @@ class GiftCardCurrencyController {
   static create = async (req, res) => {
     try {
       const currency = await GiftCardCurrencyService.create(req.body);
-      res.status(201).json({ success: true, currency });
+      res.status(201).json({ success: true, message: 'Account Created Successfully', currency });
     } catch (error) {
       res.status(500).json({ success: false, message: error.message });
     }
@@ -13,7 +13,7 @@ class GiftCardCurrencyController {
   static getAll = async (req, res) => {
     try {
       const currencies = await GiftCardCurrencyService.getAll();
-      res.status(200).json({ success: true, currencies });
+      res.status(200).json(currencies );
     } catch (error) {
       res.status(500).json({ success: false, message: error.message });
     }
@@ -22,7 +22,7 @@ class GiftCardCurrencyController {
   static getOne = async (req, res) => {
     try {
       const currency = await GiftCardCurrencyService.getById(req.params.id);
-      res.status(200).json({ success: true, currency });
+      res.status(200).json( currency );
     } catch (error) {
       res.status(404).json({ success: false, message: error.message });
     }
@@ -31,7 +31,7 @@ class GiftCardCurrencyController {
   static update = async (req, res) => {
     try {
       const updated = await GiftCardCurrencyService.update(req.params.id, req.body);
-      res.status(200).json({ success: true, currency: updated });
+      res.status(200).json({ success: true, message: 'Account Updated Successfully', updated });
     } catch (error) {
       res.status(404).json({ success: false, message: error.message });
     }

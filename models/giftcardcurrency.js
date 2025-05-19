@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     exchange_rate: DataTypes.FLOAT
   }, {
     sequelize,
+    tableName: 'GiftCardCurrencies',
     modelName: 'GiftCardCurrency',
   });
   return GiftCardCurrency;
