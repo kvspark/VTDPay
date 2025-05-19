@@ -10,12 +10,12 @@ const TransactionService = require("./TransactionService");
 class OrdersService {
     static verifyPin = async (user, inputPin) => {
         if (!inputPin || typeof inputPin !== 'string' || inputPin.trim() === '') {
-            throw new error('PIN is required');
+            throw new Error('PIN is required');
         }
     
         const isMatch = await bcrypt.compare(inputPin, user.pin);
         if (!isMatch) {
-            throw new error('Invalid PIN');
+            throw new Error('Invalid PIN');
         }
     }
     
@@ -23,14 +23,14 @@ class OrdersService {
     static airtime = async (data) => {
         try {
             const user = await User.findOne({ where: { email: data.user.email } });
-            if (!user) throw new error('Invalid User');
+            if (!user) throw new Error('Invalid User');
 
             await OrdersService.verifyPin(user, data.body.pin); // 🔐 Verify PIN
 
             data.body.email = user.email;
 
             if (user.balance < data.body.amount) {
-                throw new error('Your account balance is too low for this transaction');
+                throw new Error('Your account balance is too low for this transaction');
             }
 
             const result = await axios.post(`${process.env.UTILITY_URL}/orders/airtime`, data.body, {
@@ -45,23 +45,23 @@ class OrdersService {
                 return result.data;
             }
 
-            throw new error(result.data.message || "Failed to process transaction");
-        } catch (error) {
-            throw error;
+            throw new Error(result.data.message || "Failed to process transaction");
+        } catch (err) {
+            throw new Error(err.message);
         }
     }
 
     static dataBundle = async (data) => {
         try {
             const user = await User.findOne({ where: { email: data.user.email } });
-            if (!user) throw new error('Invalid User');
+            if (!user) throw new Error('Invalid User');
 
             await OrdersService.verifyPin(user, data.body.pin);
 
             data.body.email = user.email;
 
             if (user.balance < data.body.amount) {
-                throw new error('Your account balance is too low for this transaction');
+                throw new Error('Your account balance is too low for this transaction');
             }
 
             const result = await axios.post(`${process.env.UTILITY_URL}/orders/data`, data.body, {
@@ -76,23 +76,23 @@ class OrdersService {
                 return result.data;
             }
 
-            throw new error(result.data.message || "Failed to process transaction");
-        } catch (error) {
-            throw error;
+            throw new Error(result.data.message || "Failed to process transaction");
+        } catch (err) {
+            throw new Error(err.message);
         }
     }
 
     static cable = async (data) => {
         try {
             const user = await User.findOne({ where: { email: data.user.email } });
-            if (!user) throw new error('Invalid User');
+            if (!user) throw new Error('Invalid User');
 
             await OrdersService.verifyPin(user, data.body.pin);
 
             data.body.email = user.email;
 
             if (user.balance < data.body.amount) {
-                throw new error('Your account balance is too low for this transaction');
+                throw new Error('Your account balance is too low for this transaction');
             }
 
             const result = await axios.post(`${process.env.UTILITY_URL}/orders/cable`, data.body, {
@@ -107,23 +107,23 @@ class OrdersService {
                 return result.data;
             }
 
-            throw new error(result.data.message || "Failed to process transaction");
-        } catch (error) {
-            throw error;
+            throw new Error(result.data.message || "Failed to process transaction");
+        } catch (err) {
+            throw new Error(err.message);
         }
     }
 
     static electricity = async (data) => {
         try {
             const user = await User.findOne({ where: { email: data.user.email } });
-            if (!user) throw new error('Invalid User');
+            if (!user) throw new Error('Invalid User');
 
             await OrdersService.verifyPin(user, data.body.pin);
 
             data.body.email = user.email;
 
             if (user.balance < data.body.amount) {
-                throw new error('Your account balance is too low for this transaction');
+                throw new Error('Your account balance is too low for this transaction');
             }
 
             const result = await axios.post(`${process.env.UTILITY_URL}/orders/electricity`, data.body, {
@@ -138,23 +138,23 @@ class OrdersService {
                 return result.data;
             }
 
-            throw new error(result.data.message || "Failed to process transaction");
-        } catch (error) {
-            throw error;
+            throw new Error(result.data.message || "Failed to process transaction");
+        } catch (err) {
+            throw new Error(err.message);
         }
     }
 
     static betting = async (data) => {
         try {
             const user = await User.findOne({ where: { email: data.user.email } });
-            if (!user) throw new error('Invalid User');
+            if (!user) throw new Error('Invalid User');
 
             await OrdersService.verifyPin(user, data.body.pin);
 
             data.body.email = user.email;
 
             if (user.balance < data.body.amount) {
-                throw new error('Your account balance is too low for this transaction');
+                throw new Error('Your account balance is too low for this transaction');
             }
 
             const result = await axios.post(`${process.env.UTILITY_URL}/orders/betting`, data.body, {
@@ -169,9 +169,9 @@ class OrdersService {
                 return result.data;
             }
 
-            throw new error(result.data.message || "Failed to process transaction");
-        } catch (error) {
-            throw error;
+            throw new Error(result.data.message || "Failed to process transaction");
+        } catch (err) {
+            throw new Error(err.message);
         }
     }
 
@@ -179,7 +179,7 @@ class OrdersService {
         try {
             const user = await User.findOne({ where: { email: data.user.email } });
             if (!user) {
-                throw new error('Invalid User');
+                throw new Error('Invalid User');
             }
 
 
@@ -191,7 +191,7 @@ class OrdersService {
             // return data.body
     
             if (user.balance < parseFloat(data.body.product_amount) ) {
-                throw new error('Your account balance is too low for this transaction');
+                throw new Error('Your account balance is too low for this transaction');
             }
     
             const balanceAfter = user.balance - data.body.product_amount;
@@ -240,7 +240,7 @@ class OrdersService {
                 return { success: false, message: `Purchase of ${data.body.product_name} ${data.body.product_amount} failed at the provider.` };
             }
         } catch (error) {
-            throw error
+            throw new Error(error.message || 'Something went wrong');
         }
     }
     
@@ -248,7 +248,7 @@ class OrdersService {
         try {
             const user = await User.findOne({ where: { email: data.user.email } });
             if (!user) {
-                throw new error('Invalid User');
+                throw new Error('Invalid User');
             }
 
             await OrdersService.verifyPin(user, data.body.pin);
@@ -259,7 +259,7 @@ class OrdersService {
             // return data.body
     
             if (user.balance < parseFloat(data.body.product_amount) ) {
-                throw new error('Your account balance is too low for this transaction');
+                throw new Error('Your account balance is too low for this transaction');
             }
     
             const balanceAfter = user.balance - data.body.product_amount;
@@ -309,7 +309,7 @@ class OrdersService {
                 return { success: false, message: `Purchase of ${data.body.product_name} ${data.body.product_amount} failed at the provider.` };
             }
         } catch (error) {
-            throw error
+            throw new Error(error.message || 'Something went wrong');
         }
     }
 }
