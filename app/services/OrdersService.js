@@ -10,12 +10,12 @@ const TransactionService = require("./TransactionService");
 class OrdersService {
     static verifyPin = async (user, inputPin) => {
         if (!inputPin || typeof inputPin !== 'string' || inputPin.trim() === '') {
-            throw new Error('PIN is required');
+            throw {success: false, message: 'PIN is required'};
         }
     
         const isMatch = await bcrypt.compare(inputPin, user.pin);
         if (!isMatch) {
-            throw new Error('Invalid PIN');
+            throw {success: false, message: 'Invalid PIN'};
         }
     }
     
