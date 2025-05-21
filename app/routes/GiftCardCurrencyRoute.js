@@ -5,7 +5,7 @@ const GiftCardCurrencyController = require('../controllers/GiftCardCurrencyContr
 router.post('/', GiftCardCurrencyController.create);
 router.get('/', GiftCardCurrencyController.getAll);
 router.get('/:id', GiftCardCurrencyController.getOne);
-router.put('/:id', GiftCardCurrencyController.update);
-router.delete('/:id', GiftCardCurrencyController.delete);
+router.post('/update/:id', GiftCardCurrencyController.update);
+router.get('delete/:id', GiftCardCurrencyController.delete);
 
 module.exports = router;
